@@ -36,15 +36,22 @@ files.each do |file|
   end
 end
 
+
 # configuration file
-newrelic_meetme_plugin_cfg node['newrelic_meetme_plugin']['config_file'] do
-  license license
-  wake_interval node['newrelic_meetme_plugin']['wake_interval']
-  proxy node['newrelic_meetme_plugin']['proxy']
-  services node['newrelic_meetme_plugin']['services']
-  user node['newrelic_meetme_plugin']['user']
-  pid_file node['newrelic_meetme_plugin']['pid_file']
-  log_file node['newrelic_meetme_plugin']['log_file']
+template node['newrelic_meetme_plugin']['config_file'] do
+  source 'newrelic-plugin-agent.cfg.erb'
+  owner 'root'
+  group 'root'
+  mode 0644
+  variables(
+    :license_key => license,
+    :wake_interval => node['newrelic_meetme_plugin']['wake_interval'],
+    :proxy => node['newrelic_meetme_plugin']['proxy'],
+    :user => node['newrelic_meetme_plugin']['user'],
+    :pid_file => node['newrelic_meetme_plugin']['pid_file'],
+    :log_file => node['newrelic_meetme_plugin']['log_file']
+  )
+  action :create
   notifies :restart, "service[#{node['newrelic_meetme_plugin']['service_name']}]", :delayed
 end
 

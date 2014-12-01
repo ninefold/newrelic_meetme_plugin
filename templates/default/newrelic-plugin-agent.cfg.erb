@@ -9,7 +9,62 @@ Application:
   <% unless @proxy.nil? %>
   proxy: <%= @proxy %>
   <% end %>
-  <%= @services_yml %>
+  
+
+  <% if node['newrelic_meetme_plugin']['config'].attribute?('postgresql') -%>
+  postgresql:
+    <% @config = node['newrelic_meetme_plugin']['config']['postgresql'].dup -%>
+    <% @config.sort.each do |key, value| -%>
+    <% next if value.nil? -%>
+    <%= key %>: <%=value%>
+    <% end -%>
+  <% end -%>
+  
+  <% if node['newrelic_meetme_plugin']['config'].attribute?('memcached') -%>
+  memcached:
+    <% @config = node['newrelic_meetme_plugin']['config']['memcached'].dup -%>
+    <% @config.sort.each do |key, value| -%>
+    <% next if value.nil? -%>
+    <%= key %>: <%=value%>
+    <% end -%>
+  <% end -%>
+  
+  <% if node['newrelic_meetme_plugin']['config'].attribute?('redis') -%>
+  redis:
+    <% @config = node['newrelic_meetme_plugin']['config']['redis'].dup -%>
+    <% @config.sort.each do |key, value| -%>
+    <% next if value.nil? -%>
+    <%= key %>: <%=value%>
+    <% end -%>
+  <% end -%>
+  
+  <% if node['newrelic_meetme_plugin']['config'].attribute?('nginx') -%>
+  nginx:
+    <% @config = node['newrelic_meetme_plugin']['config']['nginx'].dup -%>
+    <% @config.sort.each do |key, value| -%>
+    <% next if value.nil? -%>
+    <%= key %>: <%=value%>
+    <% end -%>
+  <% end -%>
+
+  <% if node['newrelic_meetme_plugin']['config'].attribute?('apache') -%>
+  apache_httpd:
+    <% @config = node['newrelic_meetme_plugin']['config']['apache'].dup -%>
+    <% @config.sort.each do |key, value| -%>
+    <% next if value.nil? -%>
+    <%= key %>: <%=value%>
+    <% end -%>
+  <% end -%>
+
+  <% if node['newrelic_meetme_plugin']['config'].attribute?('elasticsearch') -%>
+  elasticsearch:
+    <% @config = node['newrelic_meetme_plugin']['config']['elasticsearch'].dup -%>
+    <% @config.sort.each do |key, value| -%>
+    <% next if value.nil? -%>
+    <%= key %>: <%=value%>
+    <% end -%>
+  <% end -%>    
+
 
 Daemon:
   user: <%= @user %>

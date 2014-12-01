@@ -20,3 +20,4 @@ default['newrelic_meetme_plugin']['pid_file'] = '/var/run/newrelic/newrelic-plug
 default['newrelic_meetme_plugin']['log_file'] = '/var/log/newrelic/newrelic-plugin-agent.log'
 default['newrelic_meetme_plugin']['user'] = 'newrelic'
 default['newrelic_meetme_plugin']['additional_requirements'] = {}
+
